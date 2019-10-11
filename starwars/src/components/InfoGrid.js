@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import InfoCards from "./InfoCards";
-import { Container, Row} from 'reactstrap';
+import { Container, Row} from 'reactstrap'
 export default function InfoGrid() {
-  // NOTE: The value given to useState() must be of the same type as your vale is expected to be
-  const [character, setCharacter] = useState([]);
+  const [people, setPeople] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`https://swapi.co/api/people/`)
+      .get(`https://swapi.co/api/${people}/`)
       .then(response => {
         console.log("Character Info", response.data);
-        setCharacter(response.data);
+        setPeople(response.data);
       })
       .catch(error => {
         console.log("The radar, sir! It appears to be:", error);
@@ -21,14 +20,14 @@ export default function InfoGrid() {
   return (
    <Container>
      <Row>
-      {character.map(character => {
+      {people.map(people => {
         return (
           <InfoCards
-            key={character.id}
-            name={character.name}
-            gender={character.gender}
-            homeworld={character.homeworld}
-            species={character.species}
+            key={people.id}
+            name={people.name}
+            gender={people.gender}
+            homeworld={people.homeworld}
+            species={people.species}
           />
         );
       })}
