@@ -1,31 +1,38 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import InfoCard from "./InfoCards";
-
+import InfoCards from "./InfoCards";
+import { Container, Row} from 'reactstrap';
 export default function InfoGrid() {
-  const [infoData, setInfoData] = useState([]);
-  const [character, setCharacter] = useState("mix");
+  // NOTE: The value given to useState() must be of the same type as your vale is expected to be
+  const [character, setCharacter] = useState([]);
 
   useEffect(() => {
     axios
       .get(`https://swapi.co/api/people/`)
       .then(response => {
-        setInfoData(response.data.message);
+        console.log("Character Info", response.data);
+        setCharacter(response.data);
       })
       .catch(error => {
         console.log("The radar, sir! It appears to be:", error);
       });
-  }, [character]);
+  }, []);
 
   return (
-    <div className="container">
-      <button onClick={() => setCharacter("mastiff")}>Next</button>
-      <button onClick={() => setCharacter("labrador")}>Previous</button>
-      <div className="entry">
-        {infoData.map(item => {
-          return <PetCard key={item} character={name} imgUrl={item} />;
-        })}
-      </div>
-    </div>
+   <Container>
+     <Row>
+      {character.map(character => {
+        return (
+          <InfoCards
+            key={character.id}
+            name={character.name}
+            gender={character.gender}
+            homeworld={character.homeworld}
+            species={character.species}
+          />
+        );
+      })}
+      </Row>
+  </Container>
   );
 }

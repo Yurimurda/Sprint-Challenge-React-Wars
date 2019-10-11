@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
-// import styled from 'styled-components'
-import InfoCard from './components/InfoCards';
-// import axios from "axios"
+import InfoGrid from "./components/InfoGrid";
+
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
@@ -14,6 +13,7 @@ const App = () => {
   return (
     <div className="App">
       <h1 className="Header">React Wars</h1>
+<InfoGrid />
     </div>
   );
 }
